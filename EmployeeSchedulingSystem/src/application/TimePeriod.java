@@ -3,7 +3,6 @@ package application;
 /**
  * Replaces Tuple in class diagram
  * holds two integers representing a start and end to a time period
- * @author Elijah
  *
  */
 public class TimePeriod {

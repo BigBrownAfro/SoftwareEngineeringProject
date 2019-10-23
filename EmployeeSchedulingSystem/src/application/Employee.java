@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Employee {
 
 	private String fName;
-	private String mName;
+	private char mName;
 	private String lName;
 	private int id;
 	private ArrayList<TimePeriod> availableTimes;
@@ -14,14 +14,14 @@ public class Employee {
 	public Employee(String firstName, String lastName, int id) {
 		fName = firstName;
 		lName = lastName;
-		mName = "";
+		mName = ' ';
 		this.id = id;
 		
 		availableTimes = new ArrayList<TimePeriod>();
 		availableDays = new ArrayList<String>();
 	}
 	
-	public Employee(String firstName, String lastName, String middleInitial, int id) {
+	public Employee(String firstName, String lastName, char middleInitial, int id) {
 		fName = firstName;
 		lName = lastName;
 		mName = middleInitial;
@@ -35,7 +35,7 @@ public class Employee {
 		return fName;
 	}
 
-	public String getMiddleName() {
+	public char getMiddleName() {
 		return mName;
 	}
 
