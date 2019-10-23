@@ -18,4 +18,12 @@ public class Date {
 			System.out.println("Invalid day number");
 		}
 	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public int getDay() {
+		return day;
+	}
 }

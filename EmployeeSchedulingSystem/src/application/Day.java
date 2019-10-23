@@ -45,4 +45,17 @@ public class Day {
 			System.out.println("Failed to calculate day name");
 		}
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public int getDay() {
+		return day;
+	}
+	
 }

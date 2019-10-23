@@ -23,8 +23,8 @@ public class Setup {
 		staticShifts.add(new TimePeriod(800,1600)); //8AM to 4PM
 		staticShifts.add(new TimePeriod(1600,2400)); //4PM to 12AM
 		
-		employees.add(new Employee("Elijah", "Williams", 1005));
-		employees.add(new Employee("Janet", "Jackson", 'J', 1006));
+		employees.add(new Employee("Elijah", "Williams", 'J', 1005));
+		employees.add(new Employee("Janet", "Jackson", 'P', 1006));
 		employees.add(new Employee("George", "Lopez", 1009));
 		
 		workDays.add("Monday");

@@ -16,6 +16,9 @@ public class Month {
 	public Month(String name, int numDays) {
 		this.name = name;
 		days = new Day[numDays];
+		for (int i = 0; i < days.length; i++) {
+			days[i] = new Day(this.name, i + 1);
+		}
 	}
 	
 	private int calculateNumOfDays() { //Not Finished
