@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class Day {
 	private String name;
 	private String month;
+	private int year;
 	private int day;
 	ArrayList<TimeSlot> timeSlots;
 	
-	public Day(String month, int day) {
+	public Day(String month, int day, int year) {
 		this.month = month;
 		this.day = day;
+		this.year = year;
 		calculateDayOfWeek();
 		timeSlots = new ArrayList<TimeSlot>();
 	}
@@ -56,6 +58,12 @@ public class Day {
 
 	public int getDay() {
 		return day;
+	}
+	
+	public String printDate() {
+		String date = month + " " + day + ", " + year;
+		System.out.println(date);
+		return date;
 	}
 	
 }

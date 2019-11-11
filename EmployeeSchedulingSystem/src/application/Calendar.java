@@ -9,26 +9,30 @@ public class Calendar {
 		year = 2019;
 		months = new Month[12];
 		setupMonths();
-		selectedMonth = months[10];
+		selectedMonth = months[9];
 	}
 	
 	private void setupMonths() {
-		months[0] = new Month("January", 31);
+		months[0] = new Month("January", 31, year);
 		if(year % 4 == 0) {
-			months[1] = new Month("February", 29);
+			months[1] = new Month("February", 29, year);
 		}else {
-			months[1] = new Month("February", 28);
+			months[1] = new Month("February", 28, year);
 		}
-		months[2] = new Month("March", 31);
-		months[3] = new Month("April", 30);
-		months[4] = new Month("May", 31);
-		months[5] = new Month("June", 30);
-		months[6] = new Month("July", 31);
-		months[7] = new Month("August", 31);
-		months[8] = new Month("September", 30);
-		months[9] = new Month("October", 31);
-		months[10] = new Month("November", 30);
-		months[11] = new Month("Decemeber", 31);
+		months[2] = new Month("March", 31, year);
+		months[3] = new Month("April", 30, year);
+		months[4] = new Month("May", 31, year);
+		months[5] = new Month("June", 30, year);
+		months[6] = new Month("July", 31, year);
+		months[7] = new Month("August", 31, year);
+		months[8] = new Month("September", 30, year);
+		months[9] = new Month("October", 31, year);
+		months[10] = new Month("November", 30, year);
+		months[11] = new Month("Decemeber", 31, year);
+	}
+	
+	public Day getDay(int day) {
+		return selectedMonth.getDay(day);
 	}
 	
 	public void setMonth(int i) {
@@ -51,10 +55,33 @@ public class Calendar {
 		return null;
 	}
 	
-	public Month nextMonth(String s) {
+	public Month nextMonth() {
 		for(int i = 0; i < months.length; i++) {
+			System.out.println(i);
 			if (months[i].equals(selectedMonth)) {
+				if(i == 11) {
+					selectedMonth = months[0];
+					//year = year++;
+					return selectedMonth;
+				}
 				selectedMonth = months[i + 1];
+				return selectedMonth;
+			}
+		}
+		return selectedMonth;
+	}
+	
+	public Month previousMonth() {
+		for(int i = 0; i < months.length; i++) {
+			System.out.println(i);
+			if (months[i].equals(selectedMonth)) {
+				if(i == 0) {
+					selectedMonth = months[11];
+					//year = year--;
+					return selectedMonth;
+				}
+				selectedMonth = months[i - 1];
+				return selectedMonth;
 			}
 		}
 		return selectedMonth;
