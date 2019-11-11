@@ -3,11 +3,13 @@ package application;
 public class Calendar {
 	int year;
 	Month[] months;
+	Month selectedMonth;
 	
 	public Calendar() {
 		year = 2019;
 		months = new Month[12];
 		setupMonths();
+		selectedMonth = months[10];
 	}
 	
 	private void setupMonths() {
@@ -27,5 +29,34 @@ public class Calendar {
 		months[9] = new Month("October", 31);
 		months[10] = new Month("November", 30);
 		months[11] = new Month("Decemeber", 31);
+	}
+	
+	public void setMonth(int i) {
+		if(i < 1 || i > 12) {
+			i = 1;
+		}
+		selectedMonth = months[i - 1];
+	}
+	
+	public Month getMonth() {
+		return selectedMonth;
+	}
+	
+	public Month getMonth(String s) {
+		for (Month month: months) {
+			if (month.name.equals(s)) {
+				return month;
+			}
+		}
+		return null;
+	}
+	
+	public Month nextMonth(String s) {
+		for(int i = 0; i < months.length; i++) {
+			if (months[i].equals(selectedMonth)) {
+				selectedMonth = months[i + 1];
+			}
+		}
+		return selectedMonth;
 	}
 }
