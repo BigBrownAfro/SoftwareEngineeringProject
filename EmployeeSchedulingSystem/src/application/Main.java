@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -42,9 +41,7 @@ public class Main extends Application {
 					new Stop(1, Color.rgb(0, 128, 150)),
 			};
 			LinearGradient gradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
-			leftPanel.setBackground(new Background(new BackgroundFill(gradient, new CornerRadii(20), null)));
-			
-			Background b = new Background(new BackgroundFill(gradient, new CornerRadii(20), null));
+			leftPanel.setBackground(new Background(new BackgroundFill(gradient, null, null)));
 			
 			//adding leftPanel vbox to the borderPane
 			rootNode.setLeft(leftPanel);
