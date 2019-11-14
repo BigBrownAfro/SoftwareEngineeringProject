@@ -57,7 +57,6 @@ public class Calendar {
 	
 	public Month nextMonth() {
 		for(int i = 0; i < months.length; i++) {
-			System.out.println(i);
 			if (months[i].equals(selectedMonth)) {
 				if(i == 11) {
 					selectedMonth = months[0];
@@ -73,7 +72,6 @@ public class Calendar {
 	
 	public Month previousMonth() {
 		for(int i = 0; i < months.length; i++) {
-			System.out.println(i);
 			if (months[i].equals(selectedMonth)) {
 				if(i == 0) {
 					selectedMonth = months[11];

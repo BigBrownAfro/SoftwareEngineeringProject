@@ -3,17 +3,19 @@ package application;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.shape.Rectangle;
 
 
 public class Main extends Application {
@@ -37,17 +39,22 @@ public class Main extends Application {
 			
 			//Setting up a color gradient
 			Stop[] stops = new Stop[] {
-					new Stop(0, Color.rgb(140, 130, 150)),
-					new Stop(1, Color.rgb(0, 128, 150)),
+					//new Stop(0, Color.rgb(140, 130, 150)),
+					//new Stop(1, Color.rgb(0, 128, 150))
+					new Stop(0, Color.rgb(180, 130, 130)),
+					new Stop(1, Color.rgb(150, 100, 150))
 			};
-			LinearGradient gradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
+			LinearGradient gradient = new LinearGradient(1, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
 			leftPanel.setBackground(new Background(new BackgroundFill(gradient, null, null)));
 			
 			//adding leftPanel vbox to the borderPane
-			rootNode.setLeft(leftPanel);
+			//rootNode.setLeft(leftPanel);
+			HBox temp = new HBox(leftPanel);
+			temp.getChildren().add(new Rectangle(1, HIEGHT, Color.BLACK));
+			rootNode.setLeft(temp);
 			
 			//setup center content
-			Group centerContent;
+			StackPane centerContent;
 			CalendarNode calendarNode = new CalendarNode(WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
 			centerContent = calendarNode;
 			rootNode.setCenter(centerContent);
