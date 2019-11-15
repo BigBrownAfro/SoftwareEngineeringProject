@@ -5,23 +5,23 @@ public class Month {
 	private int year;
 	Day[] days;
 	
-	public Month(String name, int year) {
+	public Month(String name, int year, int dayOffset) {
 		this.name = name;
 		this.year = year;
 		
 		days = new Day[calculateNumOfDays()];
 		for (int i = 0; i < days.length; i++) {
-			days[i] = new Day(this.name, i + 1, this.year);
+			days[i] = new Day(this.name, i + 1, this.year, dayOffset);
 		}
 	}
 	
-	public Month(String name, int numDays, int year) {
+	public Month(String name, int numDays, int year, int dayOffset) {
 		this.name = name;
 		this.year = year;
 		
 		days = new Day[numDays];
 		for (int i = 0; i < days.length; i++) {
-			days[i] = new Day(this.name, i + 1, year);
+			days[i] = new Day(this.name, i + 1, year, dayOffset);
 		}
 	}
 	

@@ -13,10 +13,10 @@ public class TestDriver {
 		Calendar calendar = new Calendar();
 		Day day;
 		System.out.println("Random Days:");
-		day = calendar.months[0].days[5];
+		day = calendar.getMonths()[0].days[5];
 		System.out.println(day.getMonth() + " " + day.getDay() + ", " + calendar.year);
 		
-		day = calendar.months[5].days[16];
+		day = calendar.getMonths()[5].days[16];
 		System.out.println(day.getMonth() + " " + day.getDay() + ", " + calendar.year);
 		
 		System.out.println("Test Driver Finished");

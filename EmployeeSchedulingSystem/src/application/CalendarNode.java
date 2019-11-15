@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -34,7 +33,7 @@ public class CalendarNode extends StackPane {
 		//create a gradient for the background color of the calendar
 		Stop[] stops = new Stop[] {
 				new Stop(0, Color.rgb(180, 130, 130)),
-				new Stop(1, Color.rgb(150, 100, 150)),
+				new Stop(1, Color.rgb(150, 100, 150))
 		};
 		LinearGradient gradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
 		
@@ -79,12 +78,10 @@ public class CalendarNode extends StackPane {
 		
 		//set functions for click events on arrows
 		arrowL.setOnMouseClicked(event -> {
-			System.out.println("Lbutton was clicked");
 			this.previousMonth();
 		});
 		
 		arrowR.setOnMouseClicked(event -> {
-			System.out.println("Rbutton was clicked");
 			this.nextMonth();
 		});
 
@@ -106,8 +103,8 @@ public class CalendarNode extends StackPane {
 		//adding an hBox to vBox for the day names
 		HBox dayNamesBox = new HBox();
 		//dayNamesBox.minWidth(width);
-		dayNamesBox.setPadding(new Insets(5,5,5,65));
-		dayNamesBox.setSpacing(112);
+		dayNamesBox.setPadding(new Insets(5,5,5, width / 16));
+		dayNamesBox.setSpacing(width / 11);
 		dayNamesBox.getChildren().addAll(new Text("Sunday"), new Text("Monday"), new Text("Tuesday"), new Text("Wednesday"), new Text("Thursday"), new Text("Friday"), new Text("Saturday"));
 		vBox.getChildren().add(dayNamesBox);
 	}
@@ -135,45 +132,100 @@ public class CalendarNode extends StackPane {
 		//Clear the DayTiles out of the tile pane
 		dayTilePane.getChildren().clear();
 		
-		//add in day tiles
-		for(int i = 0; i < calendar.getMonth().days.length; i++) {
+		//calculate the offset of where to put the first day of the current month
+		int offset = calendar.getDay(0).dayOfWeekIndex;
+		
+		//Fill in slots of previous month before first day of current month
+		for(int i = 0; i < offset; i++) {
+			//Find the previous month's day
+			Month pMonth = calendar.peekPreviousMonth();
+			Day pDay = pMonth.getDay((pMonth.days.length - 1) - ((offset - 1) - i));
+			
 			//Setup DayTile
-			DayTile dayTile = new DayTile(calendar.getDay(i), (width - 10.0)/7.0 - 4, (width - 10.0)/7.0 - 4);
+			DayTile dayTile = new DayTile(pDay , (width - 10.0)/7.0 - 3, (width - 10.0)/7.0 - 3);
+
+			//Darken the dayTile's rectangle
+			dayTile.rectangle.setOpacity(.3);
 			
 			//setup an event handler for clicking on a tile
 			dayTile.setOnMouseClicked(event -> {
-				System.out.println("Day " + (dayTile.day.getDay() - 1) + " clicked");
-				//DayNode dayNode= new DayNode(dayTile.day);
-				//this.getChildren().add(dayNode);
 				dayTile.day.printDate();
 			});
 			
 			//Setup an event handler for hovering over the tile
 			dayTile.setOnMouseEntered(event -> {
-				System.out.println("Mouse hover detected on dayTile: " + (dayTile.day.getDay() - 1));
-				dayTile.setOpacity(.4);
+				//Darken the dayTile rectangle by setting opacity to %40
+				dayTile.rectangle.setOpacity(.4);
 			});
 			
 			//setup an event handle for exiting a hover over a tile
 			dayTile.setOnMouseExited(event -> {
-				System.out.println("Mouse exit detected on dayTile: " + (dayTile.day.getDay() - 1));
-				dayTile.setOpacity(1);
+				//Return dayTile rectangle to %20 opacity
+				dayTile.rectangle.setOpacity(.3);
 			});
 			
 			//add the tile(rectangle) to the tilePane
 			dayTilePane.getChildren().add(dayTile);
 		}
 		
-		//add in extra days to the tilePane so that their is an even grid
+		//add in day tiles
+		for(int i = 0; i < calendar.getMonth().days.length; i++) {
+			//Setup DayTile
+			DayTile dayTile = new DayTile(calendar.getDay(i), (width - 10.0)/7.0 - 3, (width - 10.0)/7.0 - 3);
+			
+			//setup an event handler for clicking on a tile
+			dayTile.setOnMouseClicked(event -> {
+				dayTile.day.printDate();
+			});
+			
+			//Setup an event handler for hovering over the tile
+			dayTile.setOnMouseEntered(event -> {
+				//Darken the dayTile rectangle by setting opacity to %40
+				dayTile.rectangle.setOpacity(.3);
+			});
+			
+			//setup an event handle for exiting a hover over a tile
+			dayTile.setOnMouseExited(event -> {
+				//Return dayTile rectangle to %20 opacity
+				dayTile.rectangle.setOpacity(.1);
+			});
+			
+			//add the tile(rectangle) to the tilePane
+			dayTilePane.getChildren().add(dayTile);
+		}
+		
+		//add in extra days from the next month to the tilePane to fill it completely
 		int temp_currentDays = dayTilePane.getChildren().size();
-		for (int i = 0; i < 35 - temp_currentDays; i++) {
-			Rectangle r = new Rectangle(0, 0, (width - 10.0)/7.0 - 4, (width - 10.0)/7.0 - 4);
-			r.setFill(Color.GRAY);
-			r.setOpacity(.3);
-			r.setStroke(Color.BLACK);
-			r.setStrokeWidth(2);
-			dayTilePane.getChildren().add(r);
-			System.out.println("extra day added");
+		for (int i = 0; i < 42 - temp_currentDays; i++) {
+			//Find the next month's day
+			Month nMonth = calendar.peekNextMonth();
+			Day nDay = nMonth.getDay(i);
+			
+			//Setup DayTile
+			DayTile dayTile = new DayTile(nDay , (width - 10.0)/7.0 - 3, (width - 10.0)/7.0 - 3);
+			
+			//Darken the dayTile's rectangle since it's not part of the current month
+			dayTile.rectangle.setOpacity(.3);
+			
+			//setup an event handler for clicking on a tile
+			dayTile.setOnMouseClicked(event -> {
+				dayTile.day.printDate();
+			});
+			
+			//Setup an event handler for hovering over the tile
+			dayTile.setOnMouseEntered(event -> {
+				//Darken the dayTile rectangle by setting opacity to %40
+				dayTile.rectangle.setOpacity(.4);
+			});
+			
+			//setup an event handle for exiting a hover over a tile
+			dayTile.setOnMouseExited(event -> {
+				//Return dayTile rectangle to %20 opacity
+				dayTile.rectangle.setOpacity(.3);
+			});
+			
+			//add the tile(rectangle) to the tilePane
+			dayTilePane.getChildren().add(dayTile);
 		}
 	}
 	
@@ -182,7 +234,7 @@ public class CalendarNode extends StackPane {
 	 */
 	private void nextMonth() {
 		calendar.nextMonth();
-		monthNameText.setText(calendar.selectedMonth.name);
+		monthNameText.setText(calendar.getMonth().name);
 		refreshDayTiles();
 	}
 	
@@ -191,7 +243,7 @@ public class CalendarNode extends StackPane {
 	 */
 	private void previousMonth() {
 		calendar.previousMonth();
-		monthNameText.setText(calendar.selectedMonth.name);
+		monthNameText.setText(calendar.getMonth().name);
 		refreshDayTiles();
 	}
 }

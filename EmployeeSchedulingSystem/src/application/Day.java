@@ -7,20 +7,23 @@ public class Day {
 	private String month;
 	private int year;
 	private int day;
+	private int dayOffset;
+	int dayOfWeekIndex;
 	ArrayList<TimeSlot> timeSlots;
 	
-	public Day(String month, int day, int year) {
+	public Day(String month, int day, int year, int dayOffset) {
 		this.month = month;
 		this.day = day;
 		this.year = year;
+		this.dayOffset = dayOffset;
 		calculateDayOfWeek();
 		timeSlots = new ArrayList<TimeSlot>();
 	}
 	
 	private void calculateDayOfWeek() { //Not Finished
-		int temp = day % 7;
+		dayOfWeekIndex = (dayOffset + day - 1) % 7;
 		
-		switch(temp) {
+		switch(dayOfWeekIndex) {
 		case 0:
 			name = "Sunday";
 			break;
@@ -61,7 +64,7 @@ public class Day {
 	}
 	
 	public String printDate() {
-		String date = month + " " + day + ", " + year;
+		String date = name + ", " + month + " " + day + ", " + year;
 		System.out.println(date);
 		return date;
 	}

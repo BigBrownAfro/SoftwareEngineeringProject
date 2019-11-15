@@ -22,8 +22,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) { //primaryStage is the window
 		try {
-			final int WIDTH = 1280;
-			final int HIEGHT = 892; //was 720
+			final int WIDTH = 1100;
+			final int HIEGHT = 915; //was 892
 			
 			BorderPane rootNode = new BorderPane(); //The root of our nodes (views)
 			
@@ -39,8 +39,8 @@ public class Main extends Application {
 			
 			//Setting up a color gradient
 			Stop[] stops = new Stop[] {
-					//new Stop(0, Color.rgb(140, 130, 150)),
-					//new Stop(1, Color.rgb(0, 128, 150))
+					//new Stop(0, Color.rgb(180, 130, 130)),
+					//new Stop(1, Color.rgb(150, 100, 150))
 					new Stop(0, Color.rgb(180, 130, 130)),
 					new Stop(1, Color.rgb(150, 100, 150))
 			};
