@@ -25,7 +25,7 @@ public class TimePeriod {
 	}
 	
 	private void setEnd(int e) {
-		end = e - (e % 15);
+		end = e - (e % 25);
 		
 		if(end < 0) {
 			end = 0;
@@ -44,5 +44,19 @@ public class TimePeriod {
 	
 	public int getEnd() {
 		return end;
+	}
+	
+	/**
+	 * Checks to see if a given time period (t) fits within this one
+	 * @return true if it fits, false otherwise
+	 */
+	public boolean completelyOverlaps(TimePeriod t) {
+		boolean fits = true;
+		
+		if(t.start < start || t.end > end) {
+			fits = false;
+		}
+		
+		return fits;
 	}
 }

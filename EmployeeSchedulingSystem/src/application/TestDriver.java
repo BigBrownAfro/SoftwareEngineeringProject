@@ -10,7 +10,7 @@ public class TestDriver {
 		}
 		System.out.println("\n");
 		
-		Calendar calendar = new Calendar();
+		Calendar calendar = new Calendar(preferences);
 		Day day;
 		System.out.println("Random Days:");
 		day = calendar.getMonths()[0].days[5];

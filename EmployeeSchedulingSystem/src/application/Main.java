@@ -22,6 +22,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) { //primaryStage is the window
 		try {
+			Setup settings = new Setup();
+			Calendar calendar = new Calendar(settings);
+			
+			//Width and Height of scene window
 			final int WIDTH = 1100;
 			final int HIEGHT = 915; //was 892
 			
@@ -47,15 +51,17 @@ public class Main extends Application {
 			LinearGradient gradient = new LinearGradient(1, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
 			leftPanel.setBackground(new Background(new BackgroundFill(gradient, null, null)));
 			
-			//adding leftPanel vbox to the borderPane
-			//rootNode.setLeft(leftPanel);
-			HBox temp = new HBox(leftPanel);
-			temp.getChildren().add(new Rectangle(1, HIEGHT, Color.BLACK));
-			rootNode.setLeft(temp);
+			//Create an hBox that has the left panel vBox and a rectangle in it to separate the left panel from the center content
+			HBox hBox = new HBox();
+			hBox.getChildren().add(leftPanel);
+			hBox.getChildren().add(new Rectangle(1, HIEGHT, Color.BLACK));
+			
+			//set the HBox as the left side content
+			rootNode.setLeft(hBox);
 			
 			//setup center content
 			StackPane centerContent;
-			CalendarNode calendarNode = new CalendarNode(WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
+			CalendarNode calendarNode = new CalendarNode(calendar, WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
 			centerContent = calendarNode;
 			rootNode.setCenter(centerContent);
 			
