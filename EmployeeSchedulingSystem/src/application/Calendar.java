@@ -1,17 +1,25 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Calendar {
-	int year;
 	private int dayOffset; //from sunday starting 2019
 	private Month[] months;
 	private int selectedMonth; //index of selected month (0 to 11);
 	
-	public Calendar() {
+	Setup settings;
+	int year;
+	
+	public Calendar(Setup settings) {
 		year = 2019;
+		this.settings = settings;
+		
 		dayOffset = 2;
 		months = new Month[12];
 		setupMonths();
 		selectedMonth = 9;
+		
 	}
 	
 	private void setupMonths() {
@@ -108,5 +116,119 @@ public class Calendar {
 			return months[11];
 		}
 		return months[selectedMonth - 1];
+	}
+	
+	/**
+	 * Generates a filled calendar based on the settings (Setup)
+	 * @return
+	 */
+	public boolean generateCalendar() {
+		boolean isValid = true;
+		
+		//add the static shifts to each worked day
+		for(Month month: months) {
+			for(Day day: month.days) {
+				boolean isWorked = false;
+				for(String workDayName: settings.workDays) {
+					if(workDayName.equals(day.getName())) {
+						isWorked = true;
+						break;
+					}
+				}
+				if(isWorked) {
+					for(TimePeriod timePeriod: settings.staticShifts) {
+						day.timeSlots.add(new TimeSlot(timePeriod));
+					}
+				}
+			}
+		}
+		
+		//Decide schedule per workday
+		for(String workDayName: settings.workDays) {
+			
+			//check which employees can work the day
+			ArrayList<Employee> availableEmployees = new ArrayList<Employee>();
+			for(Employee employee: settings.employees) {
+				for (String dayName: employee.getAvailableDays()) {
+					if(dayName.equals(workDayName)) {
+						availableEmployees.add(employee);
+						break;
+					}
+				}
+			}
+			
+			//if nobody can work the day return with error
+			if(availableEmployees.isEmpty()) {
+				System.out.println("No available employees for: " + workDayName);
+				isValid = false;
+			}
+			
+			//For each shift for the day
+			for(TimePeriod shift: settings.staticShifts) {
+				boolean shiftFilled = false;
+				
+				//sort available employees by days worked
+				Collections.sort(availableEmployees, new SortEmployeesByDaysWorked());
+				
+				//for each available employee
+				for(Employee employee: availableEmployees) {
+					
+					//if the employee is already working today skip them
+					if(employee.isWorking(workDayName)) {
+						continue;
+					}
+					
+					//for each time availability per employee
+					for(TimePeriod availableTime: employee.getAvailableTimes()) {
+						
+						//If the shift is within their available time
+						if(availableTime.completelyOverlaps(shift)) {
+							shiftFilled = true;
+							
+							//Assign the employee to that shift
+							assignEmployeeToShift(employee, workDayName, shift);
+							
+							//Set the employee as working on that day in the employee object
+							employee.setWorking(workDayName);
+							
+							//the shift was filled so break out of the available time loop
+							break;
+						}
+					}
+					if(shiftFilled) {
+						//the shift was filled so break out of the employees loop and move on to the next shift
+						break; 
+					}
+				}
+				
+				//Check to see if the shift wasn't filled before exiting
+				if(!shiftFilled) {
+					System.out.println("shift from " + shift.getStart() + " to " + shift.getEnd() + " on " + workDayName + " wasn't filled");
+					isValid = false;
+				}
+			}
+		}
+		
+		return isValid;
+	}
+	
+	/**
+	 * Assigns an employee to a time shift for every day with that name
+	 * @param employee
+	 * @param dayName
+	 * @param timePeriod
+	 */
+	private void assignEmployeeToShift(Employee employee, String dayName ,TimePeriod timePeriod) {
+		for(Month month: months) {
+			for(Day day: month.days) {
+				if(day.getName().equals(dayName)) {
+					for(TimeSlot timeSlot: day.timeSlots) {
+						if(timeSlot.timePeriod.equals(timePeriod)) {
+							timeSlot.addEmployee(employee);
+						}
+					}
+				}
+			}
+		}
 	}
 }

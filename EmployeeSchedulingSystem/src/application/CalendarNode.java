@@ -17,18 +17,68 @@ import javafx.scene.text.Text;
 
 public class CalendarNode extends StackPane {
 	Calendar calendar;
+	Setup settings; //To be deleted
 	double width;
 	double height;
 	TilePane dayTilePane;
 	Text monthNameText;
 	DayNode dayNode;
 	
-	CalendarNode(double width, double height){
+	CalendarNode(Calendar calendar, double width, double height){
 		this.width = width;
 		this.height = height;
 		
-		//Setup database --------------------------------------------------------------------------------------------------------------
-		calendar = new Calendar();
+		//Link database --------------------------------------------------------------------------------------------------------------
+		this.calendar = calendar;
+		
+		//For testing purposes
+		this.settings = calendar.settings;
+		//settings.staticShifts.add(new TimePeriod(000,800)); //12AM to 8AM
+		settings.staticShifts.add(new TimePeriod(800,1600)); //8AM to 4PM
+		settings.staticShifts.add(new TimePeriod(1600,2400)); //4PM to 12AM
+		
+		Employee elgia = new Employee("Elijah", "Williams", 'J', 1005);
+		elgia.addAvailableDay("Monday");
+		elgia.addAvailableDay("Tuesday");
+		elgia.addAvailableDay("Wednesday");
+		elgia.addAvailableDay("Thursday");
+		elgia.addAvailableDay("Friday");
+		elgia.addAvailableTime(800, 2400);
+		
+		Employee janet = new Employee("Janet", "Jackson", 'P', 1006);
+		janet.addAvailableDay("Wednesday");
+		janet.addAvailableDay("Thursday");
+		janet.addAvailableDay("Friday");
+		janet.addAvailableTime(800, 1600);
+		
+		Employee george = new Employee("George", "Lopez", 1009);
+		george.addAvailableDay("Sunday");
+		george.addAvailableDay("Monday");
+		george.addAvailableDay("Tuesday");
+		george.addAvailableDay("Wednesday");
+		george.addAvailableDay("Friday");
+		george.addAvailableDay("Saturday");
+		george.addAvailableTime(1600, 2400);
+		
+		settings.employees.add(elgia);
+		settings.employees.add(janet);
+		settings.employees.add(george);
+		
+		settings.workDays.add("Monday");
+		settings.workDays.add("Tuesday");
+		settings.workDays.add("Wednesday");
+		settings.workDays.add("Thursday");
+		settings.workDays.add("Friday");
+		
+		settings.dateExemptions.add(new Date("July", 4));
+		settings.dateExemptions.add(new Date("December", 25));
+		
+		boolean hasNoErrors = calendar.generateCalendar();
+		if(hasNoErrors) {
+			System.out.println("Calendar was created with no errors");
+		}else {
+			System.out.println("Calendar was created with errors");
+		}
 		
 		//Setup GUI -------------------------------------------------------------------------------------------------------------------
 		//create a gradient for the background color of the calendar
