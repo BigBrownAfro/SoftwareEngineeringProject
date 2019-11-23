@@ -6,11 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -63,27 +65,166 @@ public class DayNode extends BorderPane {
 		topOutline.setStroke(Color.BLACK);
 		topOutline.setStrokeWidth(2);
 		
-		VBox vBox = new VBox();
+		HBox hBox = new HBox();
+		VBox morningTimeBox = new VBox(56);
+		VBox morningTimePeriodBox = new VBox();
+		VBox eveningTimeBox = new VBox(56);
+		VBox eveningTimePeriodBox = new VBox();
 		
-		vBox.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-		dayContent.getChildren().add(dayText);
+		hBox.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+		//dayContent.getChildren().add(dayText);
 		//dayContent.getChildren().add(testText);
 		
-		vBox.getChildren().add(new Text("00:00"));
-		vBox.getChildren().add(new Text("01:00"));
-		vBox.getChildren().add(new Text("02:00"));
-		vBox.getChildren().add(new Text("03:00"));
-		vBox.getChildren().add(new Text("04:00"));
-		vBox.getChildren().add(new Text("05:00"));
-		vBox.getChildren().add(new Text("06:00"));
-		vBox.getChildren().add(new Text("07:00"));
-		vBox.getChildren().add(new Text("08:00"));
-		vBox.getChildren().add(new Text("09:00"));
-		vBox.getChildren().add(new Text("10:00"));
-		vBox.getChildren().add(new Text("11:00"));
-		vBox.getChildren().add(new Text("12:00"));
+		morningTimeBox.getChildren().add(new Text("12:00 AM"));
+		morningTimeBox.getChildren().add(new Text("01:00 AM"));
+		morningTimeBox.getChildren().add(new Text("02:00 AM"));
+		morningTimeBox.getChildren().add(new Text("03:00 AM"));
+		morningTimeBox.getChildren().add(new Text("04:00 AM"));
+		morningTimeBox.getChildren().add(new Text("05:00 AM"));
+		morningTimeBox.getChildren().add(new Text("06:00 AM"));
+		morningTimeBox.getChildren().add(new Text("07:00 AM"));
+		morningTimeBox.getChildren().add(new Text("08:00 AM"));
+		morningTimeBox.getChildren().add(new Text("09:00 AM"));
+		morningTimeBox.getChildren().add(new Text("10:00 AM"));
+		morningTimeBox.getChildren().add(new Text("11:00 AM"));
+		
+		Rectangle morning12Period = new Rectangle(0,0,100,36);
+		Rectangle morning1230Period = new Rectangle(100,36);
+		Rectangle morning1Period = new Rectangle(100,36);
+		Rectangle morning130Period = new Rectangle(100,36);
+		Rectangle morning2Period = new Rectangle(100,36);
+		Rectangle morning230Period = new Rectangle(100,36);
+		Rectangle morning3Period = new Rectangle(100,36);
+		Rectangle morning330Period = new Rectangle(100,36);
+		Rectangle morning4Period = new Rectangle(100,36);
+		Rectangle morning430Period = new Rectangle(100,36);
+		Rectangle morning5Period = new Rectangle(100,36);
+		Rectangle morning530Period = new Rectangle(100,36);
+		Rectangle morning6Period = new Rectangle(100,36);
+		Rectangle morning630Period = new Rectangle(100,36);
+		Rectangle morning7Period = new Rectangle(100,36);
+		Rectangle morning730Period = new Rectangle(100,36);
+		Rectangle morning8Period = new Rectangle(100,36);
+		Rectangle morning830Period = new Rectangle(100,36);
+		Rectangle morning9Period = new Rectangle(100,36);
+		Rectangle morning930Period = new Rectangle(100,36);
+		Rectangle morning10Period = new Rectangle(100,36);
+		Rectangle morning1030Period = new Rectangle(100,36);
+		Rectangle morning11Period = new Rectangle(100,36);
+		Rectangle morning1130Period = new Rectangle(100,36);
+		
+	
+		
+	
 
-		dayContent.setCenter(vBox);
+		
+		morningTimePeriodBox.getChildren().add(morning12Period);
+		morningTimePeriodBox.getChildren().add(morning1230Period);
+		morningTimePeriodBox.getChildren().add(morning1Period);
+		morningTimePeriodBox.getChildren().add(morning130Period);
+		morningTimePeriodBox.getChildren().add(morning2Period);
+		morningTimePeriodBox.getChildren().add(morning230Period);
+		morningTimePeriodBox.getChildren().add(morning3Period);
+		morningTimePeriodBox.getChildren().add(morning330Period);
+		morningTimePeriodBox.getChildren().add(morning4Period);
+		morningTimePeriodBox.getChildren().add(morning430Period);
+		morningTimePeriodBox.getChildren().add(morning5Period);
+		morningTimePeriodBox.getChildren().add(morning530Period);
+		morningTimePeriodBox.getChildren().add(morning6Period);
+		morningTimePeriodBox.getChildren().add(morning630Period);
+		morningTimePeriodBox.getChildren().add(morning7Period);
+		morningTimePeriodBox.getChildren().add(morning730Period);
+		morningTimePeriodBox.getChildren().add(morning8Period);
+		morningTimePeriodBox.getChildren().add(morning830Period);
+		morningTimePeriodBox.getChildren().add(morning9Period);
+		morningTimePeriodBox.getChildren().add(morning930Period);
+		morningTimePeriodBox.getChildren().add(morning10Period);
+		morningTimePeriodBox.getChildren().add(morning1030Period);
+		morningTimePeriodBox.getChildren().add(morning11Period);
+		morningTimePeriodBox.getChildren().add(morning1130Period);
+		
+		for (Node node: morningTimePeriodBox.getChildren()) {
+			((Shape) node).setFill(Color.MEDIUMPURPLE);
+		}
+		
+		morning930Period.setOpacity(1);
+
+		
+		hBox.getChildren().add(morningTimeBox);
+		hBox.getChildren().add(morningTimePeriodBox);
+		
+		eveningTimeBox.getChildren().add(new Text("12:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("01:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("02:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("03:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("04:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("05:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("06:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("07:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("08:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("09:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("10:00 PM"));
+		eveningTimeBox.getChildren().add(new Text("11:00 PM"));
+		
+		Rectangle evening12Period = new Rectangle(0,0,100,36);
+		Rectangle evening1230Period = new Rectangle(100,36);
+		Rectangle evening1Period = new Rectangle(100,36);
+		Rectangle evening130Period = new Rectangle(100,36);
+		Rectangle evening2Period = new Rectangle(100,36);
+		Rectangle evening230Period = new Rectangle(100,36);
+		Rectangle evening3Period = new Rectangle(100,36);
+		Rectangle evening330Period = new Rectangle(100,36);
+		Rectangle evening4Period = new Rectangle(100,36);
+		Rectangle evening430Period = new Rectangle(100,36);
+		Rectangle evening5Period = new Rectangle(100,36);
+		Rectangle evening530Period = new Rectangle(100,36);
+		Rectangle evening6Period = new Rectangle(100,36);
+		Rectangle evening630Period = new Rectangle(100,36);
+		Rectangle evening7Period = new Rectangle(100,36);
+		Rectangle evening730Period = new Rectangle(100,36);
+		Rectangle evening8Period = new Rectangle(100,36);
+		Rectangle evening830Period = new Rectangle(100,36);
+		Rectangle evening9Period = new Rectangle(100,36);
+		Rectangle evening930Period = new Rectangle(100,36);
+		Rectangle evening10Period = new Rectangle(100,36);
+		Rectangle evening1030Period = new Rectangle(100,36);
+		Rectangle evening11Period = new Rectangle(100,36);
+		Rectangle evening1130Period = new Rectangle(100,36);
+		
+		eveningTimePeriodBox.getChildren().add(evening12Period);
+		eveningTimePeriodBox.getChildren().add(evening1230Period);
+		eveningTimePeriodBox.getChildren().add(evening1Period);
+		eveningTimePeriodBox.getChildren().add(evening130Period);
+		eveningTimePeriodBox.getChildren().add(evening2Period);
+		eveningTimePeriodBox.getChildren().add(evening230Period);
+		eveningTimePeriodBox.getChildren().add(evening3Period);
+		eveningTimePeriodBox.getChildren().add(evening330Period);
+		eveningTimePeriodBox.getChildren().add(evening4Period);
+		eveningTimePeriodBox.getChildren().add(evening430Period);
+		eveningTimePeriodBox.getChildren().add(evening5Period);
+		eveningTimePeriodBox.getChildren().add(evening530Period);
+		eveningTimePeriodBox.getChildren().add(evening6Period);
+		eveningTimePeriodBox.getChildren().add(evening630Period);
+		eveningTimePeriodBox.getChildren().add(evening7Period);
+		eveningTimePeriodBox.getChildren().add(evening730Period);
+		eveningTimePeriodBox.getChildren().add(evening8Period);
+		eveningTimePeriodBox.getChildren().add(evening830Period);
+		eveningTimePeriodBox.getChildren().add(evening9Period);
+		eveningTimePeriodBox.getChildren().add(evening930Period);
+		eveningTimePeriodBox.getChildren().add(evening10Period);
+		eveningTimePeriodBox.getChildren().add(evening1030Period);
+		eveningTimePeriodBox.getChildren().add(evening11Period);
+		eveningTimePeriodBox.getChildren().add(evening1130Period);
+		
+		for (Node node: eveningTimePeriodBox.getChildren()) {
+			((Shape) node).setFill(Color.MEDIUMPURPLE);
+		}
+
+		
+		hBox.getChildren().add(eveningTimeBox);
+		hBox.getChildren().add(eveningTimePeriodBox);
+
+		dayContent.setCenter(hBox);
 		
 		
 		
