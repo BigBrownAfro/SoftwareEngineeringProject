@@ -1,6 +1,8 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -31,11 +33,18 @@ public class Main extends Application {
 			VBox leftPanel = new VBox();
 			leftPanel.setPrefSize(WIDTH/8.0, HIEGHT);
 			leftPanel.setPadding(new Insets(5,5,5,5));
+			leftPanel.setSpacing(5);
 			
 			//create settings button in left panel
 			Button settingsButton = new Button("Settings");
 			settingsButton.setPrefSize(WIDTH/8.0 - 5, 50);
 			leftPanel.getChildren().add(settingsButton);
+			
+			Button calendarButton = new Button("Calendar");
+			calendarButton.setPrefSize(WIDTH/8.0 - 5, 50);
+			leftPanel.getChildren().add(calendarButton);
+			
+
 			
 			//Setting up a color gradient
 			Stop[] stops = new Stop[] {
@@ -58,6 +67,24 @@ public class Main extends Application {
 			CalendarNode calendarNode = new CalendarNode(WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
 			centerContent = calendarNode;
 			rootNode.setCenter(centerContent);
+			
+			//Making settings button open SettingsNode
+			settingsButton.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+					SettingsNode settingsNode = new SettingsNode(WIDTH * 7.0/8.0, HIEGHT);
+					SettingsNode centerContent = settingsNode;
+					rootNode.setCenter(centerContent);
+			    }
+			});
+			
+			//Make the calendar button open the CalendarNode
+			calendarButton.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			    	CalendarNode calendarNode = new CalendarNode(WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
+					CalendarNode centerContent = calendarNode;
+					rootNode.setCenter(centerContent);
+			    }
+			});
 			
 			//setup scene
 			Scene scene = new Scene(rootNode, WIDTH, HIEGHT); //A scene represents the physical contents of a JavaFX application
