@@ -70,10 +70,19 @@ public class DayNode extends BorderPane {
 		VBox morningTimePeriodBox = new VBox();
 		VBox eveningTimeBox = new VBox(56);
 		VBox eveningTimePeriodBox = new VBox();
+		StackPane morningTimePeriodBoxPane = new StackPane();
+		StackPane morningTimePeriodBoxPane1 = new StackPane();
 		
-		hBox.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+		hBox.setBackground(new Background(new BackgroundFill(Color.THISTLE, null, null)));
 		//dayContent.getChildren().add(dayText);
 		//dayContent.getChildren().add(testText);
+		
+		TimeSlotNode morning12Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		TimeSlotNode morning1230Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		TimeSlotNode morning1Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		TimeSlotNode morning130Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		TimeSlotNode morning2Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		TimeSlotNode morning230Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
 		
 		morningTimeBox.getChildren().add(new Text("12:00 AM"));
 		morningTimeBox.getChildren().add(new Text("01:00 AM"));
@@ -88,7 +97,7 @@ public class DayNode extends BorderPane {
 		morningTimeBox.getChildren().add(new Text("10:00 AM"));
 		morningTimeBox.getChildren().add(new Text("11:00 AM"));
 		
-		Rectangle morning12Period = new Rectangle(0,0,100,36);
+		//Rectangle morning12Period = new Rectangle(0,0,100,36);
 		Rectangle morning1230Period = new Rectangle(100,36);
 		Rectangle morning1Period = new Rectangle(100,36);
 		Rectangle morning130Period = new Rectangle(100,36);
@@ -117,13 +126,26 @@ public class DayNode extends BorderPane {
 		
 	
 
+		morning1Node.rectangle.setOpacity(0);
+		morning2Node.rectangle.setOpacity(0);
 		
-		morningTimePeriodBox.getChildren().add(morning12Period);
-		morningTimePeriodBox.getChildren().add(morning1230Period);
-		morningTimePeriodBox.getChildren().add(morning1Period);
-		morningTimePeriodBox.getChildren().add(morning130Period);
-		morningTimePeriodBox.getChildren().add(morning2Period);
-		morningTimePeriodBox.getChildren().add(morning230Period);
+		VBox allEmployees = new VBox();
+		
+		allEmployees.getChildren().addAll(morning12Node.employeeText,morning12Node.employee2);
+		
+		//morningTimePeriodBox.getChildren().add(morning12Node.rectangle);
+		//morningTimePeriodBox.getChildren().add(morning12Node.employeeText);
+		morningTimePeriodBoxPane.getChildren().addAll(morning12Node.rectangle,allEmployees);
+
+	
+		morningTimePeriodBox.getChildren().add(morningTimePeriodBoxPane);
+		//morningTimePeriodBox.getChildren().add(morningTimePeriodBoxPane1);
+		
+		//morningTimePeriodBox.getChildren().add(morning1230Node.rectangle);
+		//morningTimePeriodBox.getChildren().add(morning1Node.rectangle);
+		morningTimePeriodBox.getChildren().add(morning130Node.rectangle);
+		morningTimePeriodBox.getChildren().add(morning2Node.rectangle);
+		morningTimePeriodBox.getChildren().add(morning230Node.rectangle);
 		morningTimePeriodBox.getChildren().add(morning3Period);
 		morningTimePeriodBox.getChildren().add(morning330Period);
 		morningTimePeriodBox.getChildren().add(morning4Period);
@@ -143,9 +165,10 @@ public class DayNode extends BorderPane {
 		morningTimePeriodBox.getChildren().add(morning11Period);
 		morningTimePeriodBox.getChildren().add(morning1130Period);
 		
-		for (Node node: morningTimePeriodBox.getChildren()) {
-			((Shape) node).setFill(Color.MEDIUMPURPLE);
-		}
+	//	for (Node node: morningTimePeriodBox.getChildren()) {
+	//		((Shape) node).setFill(Color.MEDIUMPURPLE);
+	//	}
+		
 		
 		morning930Period.setOpacity(1);
 
