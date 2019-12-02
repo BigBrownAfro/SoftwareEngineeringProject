@@ -23,6 +23,9 @@ public class DayNode extends BorderPane {
 	CalendarNode parent;
 	Text dayText;
 	Text testText;
+	TimeSlotNode[] morningTimeSlotArray = new TimeSlotNode[24];
+	TimeSlotNode[] eveningTimeSlotArray= new TimeSlotNode[24];
+	StackPane[] morningTimePaneArray = new StackPane[24];
 
 	public DayNode(Day day, CalendarNode parent) {
 		BorderPane dayRoot = new BorderPane();
@@ -77,12 +80,20 @@ public class DayNode extends BorderPane {
 		//dayContent.getChildren().add(dayText);
 		//dayContent.getChildren().add(testText);
 		
-		TimeSlotNode morning12Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
-		TimeSlotNode morning1230Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
-		TimeSlotNode morning1Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
-		TimeSlotNode morning130Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
-		TimeSlotNode morning2Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
-		TimeSlotNode morning230Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		//TimeSlotNode morning12Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(0,50)));
+		//TimeSlotNode morning1230Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(50,100)));
+		//TimeSlotNode morning1Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(100,150)));
+		//TimeSlotNode morning130Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(200,250)));
+		//TimeSlotNode morning2Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(300,350)));
+		//TimeSlotNode morning230Node = new TimeSlotNode(day, new TimeSlot(new TimePeriod(400,450)));
+		
+		int startCount = 0;
+		int endCount = 50;
+		for(int i = 0; i < 24; i++) {
+			morningTimeSlotArray[i] = new TimeSlotNode(day, new TimeSlot(new TimePeriod(startCount, endCount)));
+			startCount += 50;
+			endCount += 50;
+		}
 		
 		morningTimeBox.getChildren().add(new Text("12:00 AM"));
 		morningTimeBox.getChildren().add(new Text("01:00 AM"));
@@ -97,7 +108,9 @@ public class DayNode extends BorderPane {
 		morningTimeBox.getChildren().add(new Text("10:00 AM"));
 		morningTimeBox.getChildren().add(new Text("11:00 AM"));
 		
-		//Rectangle morning12Period = new Rectangle(0,0,100,36);
+		
+		/*
+		Rectangle morning12Period = new Rectangle(0,0,100,36);
 		Rectangle morning1230Period = new Rectangle(100,36);
 		Rectangle morning1Period = new Rectangle(100,36);
 		Rectangle morning130Period = new Rectangle(100,36);
@@ -121,28 +134,68 @@ public class DayNode extends BorderPane {
 		Rectangle morning1030Period = new Rectangle(100,36);
 		Rectangle morning11Period = new Rectangle(100,36);
 		Rectangle morning1130Period = new Rectangle(100,36);
-		
+		*/
 	
 		
 	
 
-		morning1Node.rectangle.setOpacity(0);
-		morning2Node.rectangle.setOpacity(0);
+		//morning1Node.rectangle.setOpacity(0);
+		//morning2Node.rectangle.setOpacity(0);
 		
-		VBox allEmployees = new VBox();
+	//	VBox allEmployees = new VBox();
 		
-		allEmployees.getChildren().addAll(morning12Node.employeeText,morning12Node.employee2);
+		//allEmployees.getChildren().addAll(morning12Node.employeeText,morning12Node.employee2);
 		
 		//morningTimePeriodBox.getChildren().add(morning12Node.rectangle);
 		//morningTimePeriodBox.getChildren().add(morning12Node.employeeText);
-		morningTimePeriodBoxPane.getChildren().addAll(morning12Node.rectangle,allEmployees);
-
-	
-		morningTimePeriodBox.getChildren().add(morningTimePeriodBoxPane);
-		//morningTimePeriodBox.getChildren().add(morningTimePeriodBoxPane1);
 		
-		//morningTimePeriodBox.getChildren().add(morning1230Node.rectangle);
-		//morningTimePeriodBox.getChildren().add(morning1Node.rectangle);
+	//	for(int i = 0; i < 24; i++) {
+	//		morningTimePeriodBoxPane.getChildren().add(morningTimeSlotArray[i].rectangle);
+	//	}
+		//morningTimePeriodBoxPane.getChildren().addAll(morning12Node.rectangle,allEmployees);
+
+//		for(int i = 0; i < morningTimeSlotArray.length-1; i ++) {
+	//		morningTimePeriodBox.getChildren().add(morningTimeSlotArray[i]);
+		//}
+		
+	//	for(Employee employee: parent.settings.employees) {
+	//		allEmployees.getChildren().add(new Text(employee.getFirstName() + " " + employee.getLastName()));
+	//	}
+		
+		//Need StackPane for every TimeSlot?
+	//	morningTimePeriodBoxPane.getChildren().add(allEmployees);
+		
+		
+	
+		
+		// Instead of creating timeslots here, just copy timeslots from the day.
+		
+		
+		
+		
+		
+		for (TimeSlot timeSlot: day.timeSlots) {
+			System.out.println(timeSlot.timePeriod.getStart());
+		}
+		
+		for(int i = 0; i < 24; i++) {
+			morningTimePaneArray[i] = new StackPane();
+			morningTimePaneArray[i].getChildren().add(morningTimeSlotArray[i].rectangle);
+			morningTimePaneArray[i].getChildren().add(morningTimeSlotArray[i].employeeText);
+		}
+		
+		
+		for(int i = 0; i < 24; i++) {
+			morningTimePeriodBox.getChildren().add(morningTimePaneArray[i]);
+
+		}
+		
+		//morningTimePeriodBox.getChildren().add(morningTimePeriodBoxPane);
+		//morningTimePeriodBox.getChildren().add(morningTimePeriodBoxPane1);
+	
+		/*
+		morningTimePeriodBox.getChildren().add(morning1230Node.rectangle);
+		morningTimePeriodBox.getChildren().add(morning1Node.rectangle);
 		morningTimePeriodBox.getChildren().add(morning130Node.rectangle);
 		morningTimePeriodBox.getChildren().add(morning2Node.rectangle);
 		morningTimePeriodBox.getChildren().add(morning230Node.rectangle);
@@ -164,13 +217,12 @@ public class DayNode extends BorderPane {
 		morningTimePeriodBox.getChildren().add(morning1030Period);
 		morningTimePeriodBox.getChildren().add(morning11Period);
 		morningTimePeriodBox.getChildren().add(morning1130Period);
+		*/
 		
-	//	for (Node node: morningTimePeriodBox.getChildren()) {
-	//		((Shape) node).setFill(Color.MEDIUMPURPLE);
-	//	}
+	
 		
 		
-		morning930Period.setOpacity(1);
+		//morning930Period.setOpacity(1);
 
 		
 		hBox.getChildren().add(morningTimeBox);
