@@ -26,6 +26,7 @@ public class DayNode extends BorderPane {
 	TimeSlotNode[] morningTimeSlotArray = new TimeSlotNode[24];
 	TimeSlotNode[] eveningTimeSlotArray= new TimeSlotNode[24];
 	StackPane[] morningTimePaneArray = new StackPane[24];
+	StackPane[] eveningTimePaneArray = new StackPane[24];
 
 	public DayNode(Day day, CalendarNode parent) {
 		BorderPane dayRoot = new BorderPane();
@@ -91,9 +92,25 @@ public class DayNode extends BorderPane {
 		int endCount = 50;
 		for(int i = 0; i < 24; i++) {
 			morningTimeSlotArray[i] = new TimeSlotNode(day, new TimeSlot(new TimePeriod(startCount, endCount)));
+			morningTimeSlotArray[i].rectangle.setOpacity(0);
 			startCount += 50;
 			endCount += 50;
 		}
+		
+		for (TimeSlot timeSlot: day.timeSlots) {
+			System.out.println("start " + timeSlot.timePeriod.getStart());
+			System.out.println("end " + timeSlot.timePeriod.getEnd());
+			
+			for (TimeSlotNode timeSlotNode: morningTimeSlotArray) {
+				if(timeSlot.timePeriod.completelyOverlaps(timeSlotNode.timeSlot.timePeriod)) {
+					timeSlotNode.rectangle.setOpacity(1);
+					
+					timeSlotNode.employeeText = new Text(timeSlot.employees.get(0).getFirstName() + " " + timeSlot.employees.get(0).getLastName());
+				}
+			}
+		}
+		
+		
 		
 		morningTimeBox.getChildren().add(new Text("12:00 AM"));
 		morningTimeBox.getChildren().add(new Text("01:00 AM"));
@@ -174,9 +191,7 @@ public class DayNode extends BorderPane {
 		
 		
 		
-		for (TimeSlot timeSlot: day.timeSlots) {
-			System.out.println(timeSlot.timePeriod.getStart());
-		}
+		
 		
 		for(int i = 0; i < 24; i++) {
 			morningTimePaneArray[i] = new StackPane();
@@ -228,6 +243,42 @@ public class DayNode extends BorderPane {
 		hBox.getChildren().add(morningTimeBox);
 		hBox.getChildren().add(morningTimePeriodBox);
 		
+		startCount = 1200;
+		endCount = 1250;
+		for(int i = 0; i < 24; i++) {
+			eveningTimeSlotArray[i] = new TimeSlotNode(day, new TimeSlot(new TimePeriod(startCount, endCount)));
+			eveningTimeSlotArray[i].rectangle.setOpacity(0);
+			startCount += 50;
+			endCount += 50;
+		}
+		
+		for (TimeSlot timeSlot: day.timeSlots) {
+			System.out.println("start " + timeSlot.timePeriod.getStart());
+			System.out.println("end " + timeSlot.timePeriod.getEnd());
+			
+			for (TimeSlotNode timeSlotNode: eveningTimeSlotArray) {
+				if(timeSlot.timePeriod.completelyOverlaps(timeSlotNode.timeSlot.timePeriod)) {
+					timeSlotNode.rectangle.setOpacity(1);
+					
+					timeSlotNode.employeeText = new Text(timeSlot.employees.get(0).getFirstName() + " " + timeSlot.employees.get(0).getLastName());
+				}
+			}
+		}
+		
+		for(int i = 0; i < 24; i++) {
+			eveningTimePaneArray[i] = new StackPane();
+			eveningTimePaneArray[i].getChildren().add(eveningTimeSlotArray[i].rectangle);
+			eveningTimePaneArray[i].getChildren().add(eveningTimeSlotArray[i].employeeText);
+		}
+		
+		for(int i = 0; i < 24; i++) {
+			eveningTimePeriodBox.getChildren().add(eveningTimePaneArray[i]);
+
+		}
+		
+		
+	
+		
 		eveningTimeBox.getChildren().add(new Text("12:00 PM"));
 		eveningTimeBox.getChildren().add(new Text("01:00 PM"));
 		eveningTimeBox.getChildren().add(new Text("02:00 PM"));
@@ -241,6 +292,8 @@ public class DayNode extends BorderPane {
 		eveningTimeBox.getChildren().add(new Text("10:00 PM"));
 		eveningTimeBox.getChildren().add(new Text("11:00 PM"));
 		
+		
+		/*
 		Rectangle evening12Period = new Rectangle(0,0,100,36);
 		Rectangle evening1230Period = new Rectangle(100,36);
 		Rectangle evening1Period = new Rectangle(100,36);
@@ -290,10 +343,8 @@ public class DayNode extends BorderPane {
 		eveningTimePeriodBox.getChildren().add(evening1030Period);
 		eveningTimePeriodBox.getChildren().add(evening11Period);
 		eveningTimePeriodBox.getChildren().add(evening1130Period);
-		
-		for (Node node: eveningTimePeriodBox.getChildren()) {
-			((Shape) node).setFill(Color.MEDIUMPURPLE);
-		}
+		*/
+	
 
 		
 		hBox.getChildren().add(eveningTimeBox);

@@ -19,7 +19,7 @@ public class TimeSlotNode extends StackPane{
 		this.day = day;
 		this.timeSlot = timeSlot;
 
-		employeeText = new Text("Unknown Employee");
+		employeeText = new Text(" ");
 		employee2 = new Text("Unknown Employee 2");
 		
 		
