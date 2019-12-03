@@ -107,6 +107,7 @@ public class SettingsNode extends StackPane {
 		//Making add employee button open add employee menu
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
+		    	vBox.getChildren().clear();
 		    	addEmployeeMenu(vBox);
 		    }
 		});
@@ -114,6 +115,7 @@ public class SettingsNode extends StackPane {
 		//Making company work days button open work days menu
 		workButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
+		    	vBox.getChildren().clear();
 		    	workDaysMenu(vBox);
 		    }
 		});
@@ -121,6 +123,7 @@ public class SettingsNode extends StackPane {
 		//Making company work times button open work times menu
 		timeButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
+		    	vBox.getChildren().clear();
 		    	workTimesMenu(vBox);
 		    }
 		});
@@ -132,7 +135,7 @@ public class SettingsNode extends StackPane {
 		//makes the HBox and adds spacing stuff
 		VBox EmployeeBox = new VBox();
 		
-		EmployeeBox.setPadding(new Insets(0,5,0,5));
+		EmployeeBox.setPadding(new Insets(5,5,5,5));
 		EmployeeBox.setSpacing(5);
 
 		//Sets up first name field 
@@ -225,7 +228,7 @@ public class SettingsNode extends StackPane {
 		//makes the HBox and adds spacing stuff
 		HBox daysBox = new HBox();
 		
-		daysBox.setPadding(new Insets(0,5,0,5));
+		daysBox.setPadding(new Insets(5,5,5,5));
 		daysBox.setSpacing(5);
 		
 		//Sets up first name field 
@@ -265,7 +268,7 @@ public class SettingsNode extends StackPane {
 		//makes the HBox and adds spacing stuff
 		HBox timesBox = new HBox();
 		
-		timesBox.setPadding(new Insets(0,5,0,5));
+		timesBox.setPadding(new Insets(5,5,5,5));
 		timesBox.setSpacing(5);
 		
 		//Sets up first name field 
