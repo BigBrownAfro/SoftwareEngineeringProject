@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -108,12 +110,12 @@ public class SettingsNode extends StackPane {
 		//makes the HBox and adds spacing stuff
 		HBox EmployeeBox = new HBox();
 		
-		EmployeeBox.setPadding(new Insets(5,5,5,5));
+		EmployeeBox.setPadding(new Insets(0,5,0,5));
 		EmployeeBox.setSpacing(5);
 
 		//Sets up first name field 
 		TextField fnameField = new TextField();
-		fnameField.setPrefSize(200, 20);
+		fnameField.setPrefSize(160, 20);
 		fnameField.setPromptText("Enter employee first name.");
 		
 		//adds fname to employeebox
@@ -124,12 +126,11 @@ public class SettingsNode extends StackPane {
 		mnameField.setPrefSize(50, 20);
 		mnameField.setPromptText("M.I.");
 		
-		
 		EmployeeBox.getChildren().add(mnameField);
 		
 		//Sets up last name field 
 		TextField lnameField = new TextField();
-		lnameField.setPrefSize(200, 20);
+		lnameField.setPrefSize(160, 20);
 		lnameField.setPromptText("Enter employee last name.");
 		
 		EmployeeBox.getChildren().add(lnameField);
@@ -140,6 +141,20 @@ public class SettingsNode extends StackPane {
 		idField.setPromptText("ID#");
 		
 		EmployeeBox.getChildren().add(idField);
+		
+		//Sets up days they can work field 
+		TextField daysField = new TextField();
+		daysField.setPrefSize(200, 20);
+		daysField.setPromptText("Days to work: Ex: 'Monday, Tuesday'");
+		
+		EmployeeBox.getChildren().add(daysField);
+		
+		//Sets up times they can work field 
+		TextField timeField = new TextField();
+		timeField.setPrefSize(200, 20);
+		timeField.setPromptText("Times to work in military: Ex: '0000, 1000'");
+		
+		EmployeeBox.getChildren().add(timeField);
 		
 		//makes the button
 		Button confButton = new Button("Confirm Employee");
@@ -153,8 +168,27 @@ public class SettingsNode extends StackPane {
 		//saves employee
 		confButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		    	employee = new Employee(fnameField.getText() , lnameField.getText() , mnameField.getText().charAt(0), Integer.parseInt(idField.getText()));
+		    	
+		    	//attempt one to make a TimePeriod arraylist
+		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
+		    	tp.add((TimePeriod) Arrays.asList(daysField.getText()));
+		    	
+		    	//attemtp two to make a TimePeriod arraylist
+		    	String num = daysField.getText();
+		    	String str[] = num.split(",");
+		    	List<TimePeriod> al = new ArrayList<TimePeriod>();
+		    	al = Arrays.asList(str);
+		    	
+		    	
+		    	
+		    	
+		    	//makes the days into a array list string
+		    	ArrayList<String> days = new ArrayList<String>();
+		    	days.addAll(Arrays.asList(daysField.getText()));
+		    	
+		    	employee = new Employee(fnameField.getText() , lnameField.getText() , mnameField.getText().charAt(0), Integer.parseInt(idField.getText()), tp, days);
 		    	EmployeeBox.getChildren().clear();
+		    	addEmployeeMenu(vBox);
 		    }
 		});
 	}

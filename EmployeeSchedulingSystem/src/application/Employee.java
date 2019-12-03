@@ -21,7 +21,7 @@ public class Employee {
 		availableDays = new ArrayList<String>();
 	}
 	
-	public Employee(String firstName, String lastName, char middleInitial, int id) {
+	public Employee(String firstName, String lastName, char middleInitial, int id, ArrayList<TimePeriod> availableTimes, ArrayList<String> availableDays) {
 		fName = firstName;
 		lName = lastName;
 		mName = middleInitial;
