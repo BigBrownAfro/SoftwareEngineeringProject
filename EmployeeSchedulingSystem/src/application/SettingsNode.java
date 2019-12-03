@@ -95,11 +95,11 @@ public class SettingsNode extends StackPane {
 		//buttonBox.getChildren().add(editTimeButton);
 		
 		//makes the button
-		Button makeButton = new Button("Create Schedule");
-		makeButton.setPrefSize(width/8.0 - 5, 50);
-		
-		//adds editTimeButton to the box
-		buttonBox.getChildren().add(makeButton);
+//		Button makeButton = new Button("Create Schedule");
+//		makeButton.setPrefSize(width/8.0 - 5, 50);
+//		
+//		//adds editTimeButton to the box
+//		buttonBox.getChildren().add(makeButton);
 
 		//puts the Hbox in the Vbox 
 		vBox.getChildren().add(buttonBox);
@@ -191,20 +191,23 @@ public class SettingsNode extends StackPane {
 		confButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	
+		    	//adds the time period to the employees time period array
+		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
+		    	
 		    	//turns the text into a string array
 		    	String num = timeField.getText();
 		    	String str[] = num.split(",");
 		    	
 		    	//turns string array into ints
-		    	int tp1 = Integer.parseInt(str[0]);
-		    	int tp2 = Integer.parseInt(str[1]);
-		    	
-		    	//turns ints into a time period
-		    	TimePeriod timep = new TimePeriod(tp1, tp2);
-		    	
-		    	//adds the time period to the employees time period array
-		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
-		    	tp.add(timep);
+		    	for(int i=0; i<str.length; i++) {
+		    		int[] a = new int[str.length];
+		    		a[i] = Integer.parseInt(str[i]);
+		    		if(i%2==1) {
+		    			//turns ints into a time period and add it to the TimePeriod list
+		    			TimePeriod timep = new TimePeriod(a[i-1], a[i]);
+				    	tp.add(timep);
+		    		}
+		    	}
 		    	
 		    	//makes the days into a array list string
 		    	ArrayList<String> days = new ArrayList<String>();
