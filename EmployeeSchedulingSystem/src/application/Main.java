@@ -21,11 +21,17 @@ import javafx.scene.shape.Rectangle;
 
 
 public class Main extends Application {
+
+	StackPane centerContent;
+	CalendarNode calendarNode;
+	Setup settings;
+	Calendar calendar;
+	
 	@Override
 	public void start(Stage primaryStage) { //primaryStage is the window
 		try {
-			Setup settings = new Setup();
-			Calendar calendar = new Calendar(settings);
+			settings = new Setup();
+			calendar = new Calendar(settings);
 			
 			//Width and Height of scene window
 			final int WIDTH = 1100;
@@ -48,6 +54,10 @@ public class Main extends Application {
 			calendarButton.setPrefSize(WIDTH/8.0 - 5, 50);
 			leftPanel.getChildren().add(calendarButton);
 			
+			Button generateButton = new Button("Generate");
+			calendarButton.setPrefSize(WIDTH/8.0 - 5, 50);
+			leftPanel.getChildren().add(generateButton);
+			
 
 			
 			//Setting up a color gradient
@@ -69,27 +79,31 @@ public class Main extends Application {
 			rootNode.setLeft(hBox);
 			
 			//setup center content
-			StackPane centerContent;
-			CalendarNode calendarNode = new CalendarNode(calendar, WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
+			calendarNode = new CalendarNode(calendar, WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
 			centerContent = calendarNode;
 			rootNode.setCenter(centerContent);
 			
 			//Making settings button open SettingsNode
 			settingsButton.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
-					SettingsNode settingsNode = new SettingsNode(WIDTH * 7.0/8.0, HIEGHT);
-					SettingsNode centerContent = settingsNode;
-					rootNode.setCenter(centerContent);
+					SettingsNode settingsNode = new SettingsNode(settings, WIDTH * 7.0/8.0, HIEGHT);
+					//centerContent = settingsNode;
+					rootNode.setCenter(settingsNode);
 			    }
 			});
 			
 			//Make the calendar button open the CalendarNode
 			calendarButton.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
-			    	CalendarNode calendarNode = new CalendarNode(WIDTH * 7.0/8.0, HIEGHT); //Homemade, see CalendarNode
-					CalendarNode centerContent = calendarNode;
-					rootNode.setCenter(centerContent);
+					//centerContent = calendarNode;
+					rootNode.setCenter(calendarNode);
 			    }
+			});
+			
+			//Make generate button trigger the calendar generization
+			generateButton.setOnMouseClicked(event -> {
+				calendar.generateCalendar();
+				calendarNode.refreshDayTiles();
 			});
 			
 			//setup scene

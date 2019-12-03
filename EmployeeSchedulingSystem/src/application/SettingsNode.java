@@ -2,16 +2,13 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -20,8 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 
 public class SettingsNode extends StackPane {
@@ -33,10 +28,10 @@ public class SettingsNode extends StackPane {
 	TilePane EmployeePane;
 	Setup setup;
 	
-	SettingsNode(double width, double height){
+	SettingsNode(Setup setup, double width, double height){
 		this.width = width;
 		this.height = height;
-		setup = new Setup();
+		this.setup = setup;
 		
 		//Color stuff thanks Elijah :)
 		Stop[] stops = new Stop[] {
@@ -99,7 +94,7 @@ public class SettingsNode extends StackPane {
 		makeButton.setPrefSize(width/8.0 - 5, 50);
 		
 		//adds editTimeButton to the box
-		buttonBox.getChildren().add(makeButton);
+		//buttonBox.getChildren().add(makeButton);
 
 		//puts the Hbox in the Vbox 
 		vBox.getChildren().add(buttonBox);
@@ -196,21 +191,35 @@ public class SettingsNode extends StackPane {
 		    	String str[] = num.split(",");
 		    	
 		    	//turns string array into ints
-		    	int tp1 = Integer.parseInt(str[0]);
-		    	int tp2 = Integer.parseInt(str[1]);
+		    	//int tp1 = Integer.parseInt(str[0]);
+		    	//int tp2 = Integer.parseInt(str[1]);
+		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
+		    	for(int i=0; i<str.length; i++) {
+		    		//int[] a = new int[str.length];
+		    		//a[i] = Integer.parseInt(str[i]);
+		    		if(i%2==1) {
+		    			//turns ints into a time period and add it to the TimePeriod list
+		    			TimePeriod timep = new TimePeriod(Integer.parseInt(str[i-1]), Integer.parseInt(str[i]));
+				    	tp.add(timep);
+		    		}
+		    	}
 		    	
 		    	//turns ints into a time period
-		    	TimePeriod timep = new TimePeriod(tp1, tp2);
+		    	//TimePeriod timep = new TimePeriod(tp1, tp2);
 		    	
 		    	//adds the time period to the employees time period array
-		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
-		    	tp.add(timep);
+		    	//ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
+		    	tp.addAll(tp);
 		    	
 		    	//makes the days into a array list string
 		    	ArrayList<String> days = new ArrayList<String>();
-		    	days.addAll(Arrays.asList(daysField.getText()));
+		    	String[] tempDays = daysField.getText().split(",");
+		    	for(int i = 0; i < tempDays.length; i++) {
+		    		days.add(tempDays[i]);
+		    	}
 		    	
 		    	employee = new Employee(fnameField.getText() , lnameField.getText() , mnameField.getText().charAt(0), Integer.parseInt(idField.getText()), tp, days);
+		    	setup.employees.add(employee);
 		    	EmployeeBox.getChildren().clear();
 		    	addEmployeeMenu(vBox);
 		    }
@@ -248,8 +257,13 @@ public class SettingsNode extends StackPane {
 		    	
 				//makes the days into a array list string
 				ArrayList<String> days = new ArrayList<String>();
-				days.addAll(Arrays.asList(daysField.getText()));
-				days = setup.workDays;
+				String[] tempDays;
+				tempDays = daysField.getText().split(",");
+				for(int i = 0; i < tempDays.length; i++) {
+					tempDays[i].replaceAll(" ", "");
+					days.add(tempDays[i]);
+				}
+				setup.workDays.addAll(days);
 		
 				daysBox.getChildren().clear();
 				workDaysMenu(vBox);
@@ -295,17 +309,18 @@ public class SettingsNode extends StackPane {
 		    	
 		    	//turns string array into ints
 		    	for(int i=0; i<str.length; i++) {
-		    		int[] a = new int[str.length];
-		    		a[i] = Integer.parseInt(str[i]);
+		    		//int[] a = new int[str.length];
+		    		//a[i] = Integer.parseInt(str[i]);
 		    		if(i%2==1) {
 		    			//turns ints into a time period and add it to the TimePeriod list
-		    			TimePeriod timep = new TimePeriod(a[i-1], a[i]);
+		    			TimePeriod timep = new TimePeriod(Integer.parseInt(str[i-1]), Integer.parseInt(str[i]));
 				    	tp.add(timep);
 		    		}
 		    	}
 				
 		    	//adds the time period to the employees time period array
-		    	tp = setup.staticShifts;
+		    	//tp = setup.staticShifts;
+		    	setup.staticShifts.addAll(tp);
 		
 				timesBox.getChildren().clear();
 				workTimesMenu(vBox);

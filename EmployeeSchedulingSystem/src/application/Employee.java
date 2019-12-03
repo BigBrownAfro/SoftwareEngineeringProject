@@ -35,8 +35,8 @@ public class Employee {
 		mName = middleInitial;
 		this.id = id;
 		
-		availableTimes = new ArrayList<TimePeriod>();
-		availableDays = new ArrayList<String>();
+		this.availableTimes = availableTimes;
+		this.availableDays = availableDays;
 		
 		daysWorking = new boolean[7];
 		numDaysWorking = 0;

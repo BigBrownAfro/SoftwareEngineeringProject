@@ -31,7 +31,7 @@ public class CalendarNode extends StackPane {
 		this.calendar = calendar;
 		
 		//For testing purposes
-		this.settings = calendar.settings;
+		/*this.settings = calendar.settings;
 		//settings.staticShifts.add(new TimePeriod(000,800)); //12AM to 8AM
 		settings.staticShifts.add(new TimePeriod(800,1600)); //8AM to 4PM
 		settings.staticShifts.add(new TimePeriod(1600,2400)); //4PM to 12AM
@@ -77,7 +77,7 @@ public class CalendarNode extends StackPane {
 			System.out.println("Calendar was created with no errors");
 		}else {
 			System.out.println("Calendar was created with errors");
-		}
+		}*/
 		
 		//Setup GUI -------------------------------------------------------------------------------------------------------------------
 		//create a gradient for the background color of the calendar
@@ -178,7 +178,7 @@ public class CalendarNode extends StackPane {
 	/**
 	 * Clears the current day tile pane and puts in a new set of day tiles according to the selected month
 	 */
-	private void refreshDayTiles() {
+	public void refreshDayTiles() {
 		//Clear the DayTiles out of the tile pane
 		dayTilePane.getChildren().clear();
 		
