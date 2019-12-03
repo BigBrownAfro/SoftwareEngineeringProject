@@ -60,7 +60,7 @@ public class Main extends Application {
 			leftPanel.getChildren().add(calendarButton);
 			
 			Button generateButton = new Button("Generate");
-			calendarButton.setPrefSize(WIDTH/8.0 - 5, 50);
+			generateButton.setPrefSize(WIDTH/8.0 - 5, 50);
 			leftPanel.getChildren().add(generateButton);
 			
 
