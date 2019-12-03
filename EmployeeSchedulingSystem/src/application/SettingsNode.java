@@ -36,6 +36,7 @@ public class SettingsNode extends StackPane {
 	SettingsNode(double width, double height){
 		this.width = width;
 		this.height = height;
+		setup = new Setup();
 		
 		//Color stuff thanks Elijah :)
 		Stop[] stops = new Stop[] {
@@ -307,7 +308,7 @@ public class SettingsNode extends StackPane {
 		    	tp = setup.staticShifts;
 		
 				timesBox.getChildren().clear();
-				workDaysMenu(vBox);
+				workTimesMenu(vBox);
 			 }
 		});
 	}
