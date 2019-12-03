@@ -39,6 +39,7 @@ public class TimeSlotNode extends StackPane{
 			rectangle = new Rectangle(150,36);
 		}
 		rectangle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+		rectangle.setFill(Color.WHITESMOKE);
 		
 		
 	}
