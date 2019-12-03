@@ -139,8 +139,6 @@ public class SettingsNode extends StackPane {
 		idField.setPrefSize(50, 20);
 		idField.setPromptText("ID#");
 		
-		int i=Integer.parseInt(idField.getText());
-		
 		EmployeeBox.getChildren().add(idField);
 		
 		//makes the button
@@ -155,7 +153,8 @@ public class SettingsNode extends StackPane {
 		//saves employee
 		confButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		    	employee = new Employee(fnameField.getText() , lnameField.getText() , ((CharSequence) mnameField).charAt(0), i );
+		    	employee = new Employee(fnameField.getText() , lnameField.getText() , mnameField.getText().charAt(0), Integer.parseInt(idField.getText()));
+		    	EmployeeBox.getChildren().clear();
 		    }
 		});
 	}
