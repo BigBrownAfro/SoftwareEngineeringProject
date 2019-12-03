@@ -169,18 +169,20 @@ public class SettingsNode extends StackPane {
 		confButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	
-		    	//attempt one to make a TimePeriod arraylist
-		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
-		    	tp.add((TimePeriod) Arrays.asList(daysField.getText()));
-		    	
-		    	//attemtp two to make a TimePeriod arraylist
-		    	String num = daysField.getText();
+		    	//turns the text into a string array
+		    	String num = timeField.getText();
 		    	String str[] = num.split(",");
-		    	List<TimePeriod> al = new ArrayList<TimePeriod>();
-		    	al = Arrays.asList(str);
 		    	
+		    	//turns string array into ints
+		    	int tp1 = Integer.parseInt(str[0]);
+		    	int tp2 = Integer.parseInt(str[1]);
 		    	
+		    	//turns ints into a time period
+		    	TimePeriod timep = new TimePeriod(tp1, tp2);
 		    	
+		    	//adds the time period to the employees time period array
+		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
+		    	tp.add(timep);
 		    	
 		    	//makes the days into a array list string
 		    	ArrayList<String> days = new ArrayList<String>();
