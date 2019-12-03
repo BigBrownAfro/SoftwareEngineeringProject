@@ -73,18 +73,25 @@ public class SettingsNode extends StackPane {
 		buttonBox.getChildren().add(addButton);
 		
 		//makes the button
-		Button editButton = new Button("Edit Employee");
-		editButton.setPrefSize(width/8.0 - 5, 50);
+		Button workButton = new Button("Company Work Days");
+		workButton.setPrefSize(width/8.0 - 5, 50);
 		
 		//adds editButton to the box
-		buttonBox.getChildren().add(editButton);
+		buttonBox.getChildren().add(workButton);
 		
 		//makes the button
-		Button editTimeButton = new Button("Edit Shift Time");
-		editTimeButton.setPrefSize(width/8.0 - 5, 50);
+		Button timeButton = new Button("Company Work Times");
+		workButton.setPrefSize(width/8.0 - 5, 50);
+		
+		//adds editButton to the box
+		buttonBox.getChildren().add(timeButton);
+		
+		//makes the button
+		//Button editTimeButton = new Button("Edit Shift Time");
+		//editTimeButton.setPrefSize(width/8.0 - 5, 50);
 		
 		//adds editTimeButton to the box
-		buttonBox.getChildren().add(editTimeButton);
+		//buttonBox.getChildren().add(editTimeButton);
 		
 		//makes the button
 		Button makeButton = new Button("Create Schedule");
@@ -96,10 +103,24 @@ public class SettingsNode extends StackPane {
 		//puts the Hbox in the Vbox 
 		vBox.getChildren().add(buttonBox);
 		
-		//Making settings button open SettingsNode
+		//Making add employee button open add employee menu
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	addEmployeeMenu(vBox);
+		    }
+		});
+		
+		//Making company work days button open work days menu
+		workButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	workDaysMenu(vBox);
+		    }
+		});
+		
+		//Making company work times button open work times menu
+		timeButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	workTimesMenu(vBox);
 		    }
 		});
 	}
@@ -108,14 +129,14 @@ public class SettingsNode extends StackPane {
 		
 		
 		//makes the HBox and adds spacing stuff
-		HBox EmployeeBox = new HBox();
+		VBox EmployeeBox = new VBox();
 		
 		EmployeeBox.setPadding(new Insets(0,5,0,5));
 		EmployeeBox.setSpacing(5);
 
 		//Sets up first name field 
 		TextField fnameField = new TextField();
-		fnameField.setPrefSize(160, 20);
+		fnameField.setMaxSize(160, 20);
 		fnameField.setPromptText("Enter employee first name.");
 		
 		//adds fname to employeebox
@@ -123,35 +144,35 @@ public class SettingsNode extends StackPane {
 		
 		//Sets up middle name field 
 		TextField mnameField = new TextField();
-		mnameField.setPrefSize(50, 20);
-		mnameField.setPromptText("M.I.");
+		mnameField.setMaxSize(100, 20);
+		mnameField.setPromptText("Middle Initial");
 		
 		EmployeeBox.getChildren().add(mnameField);
 		
 		//Sets up last name field 
 		TextField lnameField = new TextField();
-		lnameField.setPrefSize(160, 20);
+		lnameField.setMaxSize(160, 20);
 		lnameField.setPromptText("Enter employee last name.");
 		
 		EmployeeBox.getChildren().add(lnameField);
 		
 		//Sets up last name field 
 		TextField idField = new TextField();
-		idField.setPrefSize(50, 20);
+		idField.setMaxSize(50, 20);
 		idField.setPromptText("ID#");
 		
 		EmployeeBox.getChildren().add(idField);
 		
 		//Sets up days they can work field 
 		TextField daysField = new TextField();
-		daysField.setPrefSize(200, 20);
+		daysField.setMaxSize(250, 20);
 		daysField.setPromptText("Days to work: Ex: 'Monday, Tuesday'");
 		
 		EmployeeBox.getChildren().add(daysField);
 		
 		//Sets up times they can work field 
 		TextField timeField = new TextField();
-		timeField.setPrefSize(200, 20);
+		timeField.setMaxSize(250, 20);
 		timeField.setPromptText("Times to work in military: Ex: '0000, 1000'");
 		
 		EmployeeBox.getChildren().add(timeField);
@@ -194,4 +215,85 @@ public class SettingsNode extends StackPane {
 		    }
 		});
 	}
+	
+	private void workDaysMenu(VBox vBox) {
+		
+		//makes the HBox and adds spacing stuff
+		HBox daysBox = new HBox();
+		
+		daysBox.setPadding(new Insets(0,5,0,5));
+		daysBox.setSpacing(5);
+		
+		//Sets up first name field 
+		TextField daysField = new TextField();
+		daysField.setPrefSize(350, 20);
+		daysField.setPromptText("Enter the work days of the company: ex: 'Monday,Tuesday'");
+				
+		//adds daysField to daysBSox
+		daysBox.getChildren().add(daysField);
+		
+		//makes the button
+		Button confButton = new Button("Confirm Days");
+		confButton.setPrefSize(width/8.0 - 5, 50);
+				
+		daysBox.getChildren().add(confButton);
+				
+		//puts the VBox in the VBox
+		vBox.getChildren().add(daysBox);
+		
+		//saves work days
+		confButton.setOnAction(new EventHandler<ActionEvent>() {
+		@Override public void handle(ActionEvent e) {
+		    	
+		//makes the days into a array list string
+		ArrayList<String> days = new ArrayList<String>();
+		days.addAll(Arrays.asList(daysField.getText()));
+		days = Setup.workDays;
+		
+		daysBox.getChildren().clear();
+		workDaysMenu(vBox);
+			 }
+		});
+	}
+	
+	private void workTimesMenu(VBox vBox) {
+		
+		//makes the HBox and adds spacing stuff
+		HBox daysBox = new HBox();
+		
+		daysBox.setPadding(new Insets(0,5,0,5));
+		daysBox.setSpacing(5);
+		
+		//Sets up first name field 
+		TextField timeField = new TextField();
+		timeField.setPrefSize(350, 20);
+		timeField.setPromptText("Enter the shift times of the company in military: ex: '0000,1000'");
+				
+		//adds daysField to daysBSox
+		daysBox.getChildren().add(timeField);
+		
+		//makes the button
+		Button confButton = new Button("Confirm Days");
+		confButton.setPrefSize(width/8.0 - 5, 50);
+				
+		daysBox.getChildren().add(confButton);
+				
+		//puts the VBox in the VBox
+		vBox.getChildren().add(daysBox);
+		
+		//saves work days
+		confButton.setOnAction(new EventHandler<ActionEvent>() {
+		@Override public void handle(ActionEvent e) {
+		    	
+		//makes the days into a array list string
+		ArrayList<String> days = new ArrayList<String>();
+		days.addAll(Arrays.asList(daysField.getText()));
+		days = Setup.workDays;
+		
+		daysBox.getChildren().clear();
+		workDaysMenu(vBox);
+			 }
+		});
+	}
+	
 }
