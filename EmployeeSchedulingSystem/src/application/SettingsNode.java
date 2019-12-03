@@ -31,7 +31,7 @@ public class SettingsNode extends StackPane {
 	double height;
 	TilePane buttonPane;
 	TilePane EmployeePane;
-	
+	Setup setup;
 	
 	SettingsNode(double width, double height){
 		this.width = width;
@@ -81,7 +81,7 @@ public class SettingsNode extends StackPane {
 		
 		//makes the button
 		Button timeButton = new Button("Company Work Times");
-		workButton.setPrefSize(width/8.0 - 5, 50);
+		timeButton.setPrefSize(width/8.0 - 5, 50);
 		
 		//adds editButton to the box
 		buttonBox.getChildren().add(timeButton);
@@ -243,15 +243,15 @@ public class SettingsNode extends StackPane {
 		
 		//saves work days
 		confButton.setOnAction(new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent e) {
+			@Override public void handle(ActionEvent e) {
 		    	
-		//makes the days into a array list string
-		ArrayList<String> days = new ArrayList<String>();
-		days.addAll(Arrays.asList(daysField.getText()));
-		days = Setup.workDays;
+				//makes the days into a array list string
+				ArrayList<String> days = new ArrayList<String>();
+				days.addAll(Arrays.asList(daysField.getText()));
+				days = setup.workDays;
 		
-		daysBox.getChildren().clear();
-		workDaysMenu(vBox);
+				daysBox.getChildren().clear();
+				workDaysMenu(vBox);
 			 }
 		});
 	}
@@ -259,10 +259,10 @@ public class SettingsNode extends StackPane {
 	private void workTimesMenu(VBox vBox) {
 		
 		//makes the HBox and adds spacing stuff
-		HBox daysBox = new HBox();
+		HBox timesBox = new HBox();
 		
-		daysBox.setPadding(new Insets(0,5,0,5));
-		daysBox.setSpacing(5);
+		timesBox.setPadding(new Insets(0,5,0,5));
+		timesBox.setSpacing(5);
 		
 		//Sets up first name field 
 		TextField timeField = new TextField();
@@ -270,28 +270,44 @@ public class SettingsNode extends StackPane {
 		timeField.setPromptText("Enter the shift times of the company in military: ex: '0000,1000'");
 				
 		//adds daysField to daysBSox
-		daysBox.getChildren().add(timeField);
+		timesBox.getChildren().add(timeField);
 		
 		//makes the button
-		Button confButton = new Button("Confirm Days");
+		Button confButton = new Button("Confirm Times");
 		confButton.setPrefSize(width/8.0 - 5, 50);
 				
-		daysBox.getChildren().add(confButton);
+		timesBox.getChildren().add(confButton);
 				
 		//puts the VBox in the VBox
-		vBox.getChildren().add(daysBox);
+		vBox.getChildren().add(timesBox);
 		
 		//saves work days
 		confButton.setOnAction(new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent e) {
+			@Override public void handle(ActionEvent e) {
+				
+				//creates TimePeriod ArrayList. Epic.
+		    	ArrayList<TimePeriod> tp = new ArrayList<TimePeriod>();
 		    	
-		//makes the days into a array list string
-		ArrayList<String> days = new ArrayList<String>();
-		days.addAll(Arrays.asList(daysField.getText()));
-		days = Setup.workDays;
+				//turns the text into a string array
+		    	String num = timeField.getText();
+		    	String str[] = num.split(",");
+		    	
+		    	//turns string array into ints
+		    	for(int i=0; i<str.length; i++) {
+		    		int[] a = new int[str.length];
+		    		a[i] = Integer.parseInt(str[i]);
+		    		if(i%2==1) {
+		    			//turns ints into a time period and add it to the TimePeriod list
+		    			TimePeriod timep = new TimePeriod(a[i-1], a[i]);
+				    	tp.add(timep);
+		    		}
+		    	}
+				
+		    	//adds the time period to the employees time period array
+		    	tp = setup.staticShifts;
 		
-		daysBox.getChildren().clear();
-		workDaysMenu(vBox);
+				timesBox.getChildren().clear();
+				workDaysMenu(vBox);
 			 }
 		});
 	}
