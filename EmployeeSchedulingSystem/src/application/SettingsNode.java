@@ -2,6 +2,8 @@ package application;
 
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -18,12 +20,15 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 
 public class SettingsNode extends StackPane {
 
+	Employee employee;
 	double width;
 	double height;
 	TilePane buttonPane;
+	TilePane EmployeePane;
 	
 	
 	SettingsNode(double width, double height){
@@ -63,8 +68,6 @@ public class SettingsNode extends StackPane {
 		//makes the button
 		Button addButton = new Button("Add Employee");
 		addButton.setPrefSize(width/8.0 - 5, 50);
-		
-		//adds addButton to the box
 		buttonBox.getChildren().add(addButton);
 		
 		//makes the button
@@ -88,7 +91,72 @@ public class SettingsNode extends StackPane {
 		//adds editTimeButton to the box
 		buttonBox.getChildren().add(makeButton);
 
-		//puts the box in the box 
+		//puts the Hbox in the Vbox 
 		vBox.getChildren().add(buttonBox);
+		
+		//Making settings button open SettingsNode
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	addEmployeeMenu(vBox);
+		    }
+		});
+	}
+	
+	private void addEmployeeMenu(VBox vBox) {
+		
+		
+		//makes the HBox and adds spacing stuff
+		HBox EmployeeBox = new HBox();
+		
+		EmployeeBox.setPadding(new Insets(5,5,5,5));
+		EmployeeBox.setSpacing(5);
+
+		//Sets up first name field 
+		TextField fnameField = new TextField();
+		fnameField.setPrefSize(200, 20);
+		fnameField.setPromptText("Enter employee first name.");
+		
+		//adds fname to employeebox
+		EmployeeBox.getChildren().add(fnameField);
+		
+		//Sets up middle name field 
+		TextField mnameField = new TextField();
+		mnameField.setPrefSize(50, 20);
+		mnameField.setPromptText("M.I.");
+		
+		
+		EmployeeBox.getChildren().add(mnameField);
+		
+		//Sets up last name field 
+		TextField lnameField = new TextField();
+		lnameField.setPrefSize(200, 20);
+		lnameField.setPromptText("Enter employee last name.");
+		
+		EmployeeBox.getChildren().add(lnameField);
+		
+		//Sets up last name field 
+		TextField idField = new TextField();
+		idField.setPrefSize(50, 20);
+		idField.setPromptText("ID#");
+		
+		int i=Integer.parseInt(idField.getText());
+		
+		EmployeeBox.getChildren().add(idField);
+		
+		//makes the button
+		Button confButton = new Button("Confirm Employee");
+		confButton.setPrefSize(width/8.0 - 5, 50);
+		
+		EmployeeBox.getChildren().add(confButton);
+		
+		//puts the Hbox in the VBox
+		vBox.getChildren().add(EmployeeBox);
+		
+		//saves employee
+		confButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	employee = new Employee(fnameField.getText() , lnameField.getText() , ((CharSequence) mnameField).charAt(0), i );
+		    }
+		});
 	}
 }
