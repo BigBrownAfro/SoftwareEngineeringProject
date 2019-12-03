@@ -1,5 +1,9 @@
 package application;
 	
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
@@ -41,6 +45,15 @@ public class Main extends Application {
 			settingsButton.setPrefSize(WIDTH/8.0 - 5, 50);
 			leftPanel.getChildren().add(settingsButton);
 			
+			Button outputButton = new Button("Output");
+			outputButton.setPrefSize(WIDTH/8.0 - 5, 50);
+			leftPanel.getChildren().add(outputButton);
+			
+			outputButton.setOnMouseClicked(event -> {
+				outputToFile(calendar);
+					
+			});
+			
 			//Setting up a color gradient
 			Stop[] stops = new Stop[] {
 					//new Stop(0, Color.rgb(180, 130, 130)),
@@ -78,6 +91,53 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	private void outputToFile(Calendar calendar) {
+		try (PrintWriter writer = new PrintWriter(new File(calendar.getMonth().name + calendar.year + "Schedule.csv"))) {
+
+		      StringBuilder sb = new StringBuilder();
+		      sb.append(' ');
+		      sb.append(',');
+		      
+		      for(TimePeriod timePeriod:calendar.settings.staticShifts) {
+		    	  sb.append(timePeriod.getStart() + " to " + timePeriod.getEnd());
+		    	  sb.append(',');
+		      }
+		      sb.append('\n');
+		      
+		      /*
+		      for(Employee employee:calendar.settings.employees) {
+		    	  sb.append(employee.getFirstName() + " " + employee.getLastName());
+		    	  sb.append(',');
+		      }
+		      sb.append('\n');
+		      */
+		      
+		      for(Day day: calendar.getMonth().days) {
+		    	  sb.append(day.printDateWithoutComma());
+		    	  sb.append(',');
+		    	  for (TimeSlot timeSlot:day.timeSlots) {
+		    		  for(Employee employee: timeSlot.employees) {
+		    			  sb.append(employee.getFirstName() + " " + employee.getLastName());
+		    			  sb.append(',');
+		    		  }
+		    	  }
+		    	  sb.append('\n');
+		      }
+		      
+		
+
+		      writer.write(sb.toString());
+
+		      System.out.println("done!");
+
+		    } catch (FileNotFoundException e) {
+		      System.out.println(e.getMessage());
+		    }
+		
+	}
+
+
 	
 	public static void main(String[] args) {
 		launch(args);

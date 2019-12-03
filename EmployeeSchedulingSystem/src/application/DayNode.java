@@ -16,6 +16,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+
 public class DayNode extends BorderPane {
 	double width = 900;
 	double height = 895;
@@ -48,9 +49,11 @@ public class DayNode extends BorderPane {
 			parent.removeDayNode();
 		});
 	
-		BackgroundFill mainBackgroundFill = new BackgroundFill(Color.WHITE, null, null);
+		BackgroundFill mainBackgroundFill = new BackgroundFill(Color.THISTLE, null, null);
 		Background mainBackground = new Background(mainBackgroundFill);
 	
+		
+		//This creates the black border around the entire view
 		dayContent.setBackground(mainBackground);
 		Line leftOutline = new Line(0,0,0,900);
 		leftOutline.setStroke(Color.BLACK);
@@ -69,9 +72,12 @@ public class DayNode extends BorderPane {
 		topOutline.setStroke(Color.BLACK);
 		topOutline.setStrokeWidth(2);
 		
+		//Creating the base contents of the view
 		HBox hBox = new HBox();
 		VBox morningTimeBox = new VBox(56);
 		VBox morningTimePeriodBox = new VBox();
+		Rectangle spacingRectangle = new Rectangle(50,36);
+		Rectangle spacingRectangle2 = new Rectangle(450,36);
 		VBox eveningTimeBox = new VBox(56);
 		VBox eveningTimePeriodBox = new VBox();
 		StackPane morningTimePeriodBoxPane = new StackPane();
@@ -110,7 +116,8 @@ public class DayNode extends BorderPane {
 			}
 		}
 		
-		
+		spacingRectangle.setOpacity(0);
+		hBox.getChildren().add(spacingRectangle);
 		
 		morningTimeBox.getChildren().add(new Text("12:00 AM"));
 		morningTimeBox.getChildren().add(new Text("01:00 AM"));
@@ -240,6 +247,7 @@ public class DayNode extends BorderPane {
 		//morning930Period.setOpacity(1);
 
 		
+		
 		hBox.getChildren().add(morningTimeBox);
 		hBox.getChildren().add(morningTimePeriodBox);
 		
@@ -269,6 +277,7 @@ public class DayNode extends BorderPane {
 			eveningTimePaneArray[i] = new StackPane();
 			eveningTimePaneArray[i].getChildren().add(eveningTimeSlotArray[i].rectangle);
 			eveningTimePaneArray[i].getChildren().add(eveningTimeSlotArray[i].employeeText);
+			
 		}
 		
 		for(int i = 0; i < 24; i++) {
@@ -276,7 +285,8 @@ public class DayNode extends BorderPane {
 
 		}
 		
-		
+		spacingRectangle2.setOpacity(0);
+		hBox.getChildren().add(spacingRectangle2);
 	
 		
 		eveningTimeBox.getChildren().add(new Text("12:00 PM"));

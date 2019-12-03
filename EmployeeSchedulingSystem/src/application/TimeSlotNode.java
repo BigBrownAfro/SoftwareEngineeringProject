@@ -21,21 +21,22 @@ public class TimeSlotNode extends StackPane{
 
 		employeeText = new Text(" ");
 		employee2 = new Text("Unknown Employee 2");
+
 		
 		
 		if(timeSlot.isFilled) {
 			employeeText = new Text(timeSlot.employees.toString());
 		}
 		
-		VBox allEmployees = new VBox();
-		allEmployees.getChildren().add(employeeText);
+		
+		
 		
 
 		
 		if(timeSlot.timePeriod.getStart()== 0) {
-			rectangle = new Rectangle(0,0,100,36);
+			rectangle = new Rectangle(0,0,150,36);
 		}else {
-			rectangle = new Rectangle(100,36);
+			rectangle = new Rectangle(150,36);
 		}
 		rectangle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
 		
