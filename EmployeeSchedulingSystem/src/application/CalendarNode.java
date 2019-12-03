@@ -22,6 +22,7 @@ public class CalendarNode extends StackPane {
 	double height;
 	TilePane dayTilePane;
 	Text monthNameText;
+	DayNode dayNode;
 	
 	CalendarNode(Calendar calendar, double width, double height){
 		this.width = width;
@@ -226,7 +227,12 @@ public class CalendarNode extends StackPane {
 			//setup an event handler for clicking on a tile
 			dayTile.setOnMouseClicked(event -> {
 				dayTile.day.printDate();
+				dayNode = new DayNode(dayTile.day,this);
+				this.getChildren().add(dayNode);
+					
 			});
+			
+			
 			
 			//Setup an event handler for hovering over the tile
 			dayTile.setOnMouseEntered(event -> {
@@ -277,6 +283,10 @@ public class CalendarNode extends StackPane {
 			//add the tile(rectangle) to the tilePane
 			dayTilePane.getChildren().add(dayTile);
 		}
+	}
+	
+	public void removeDayNode() {
+		this.getChildren().remove(dayNode);
 	}
 	
 	/**

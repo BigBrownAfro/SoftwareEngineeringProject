@@ -69,4 +69,10 @@ public class Day {
 		return date;
 	}
 	
+	public String printDateWithoutComma() {
+		String date = name + " " + month + " " + day + " " + year;
+		System.out.println(date);
+		return date;
+	}
+	
 }
