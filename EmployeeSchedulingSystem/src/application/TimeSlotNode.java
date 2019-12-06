@@ -5,7 +5,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-
+/*
+ Coded by Jacob Jackson
+ */
 public class TimeSlotNode extends StackPane{
 	TimeSlot timeSlot;
 	Rectangle rectangle;
@@ -38,7 +40,6 @@ public class TimeSlotNode extends StackPane{
 		}else {
 			rectangle = new Rectangle(150,36);
 		}
-		rectangle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
 		rectangle.setFill(Color.WHITESMOKE);
 		
 		

@@ -134,7 +134,9 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
+	 Coded by Jacob Jackson
+	 */
 	private void outputToFile(Calendar calendar) {
 		try (PrintWriter writer = new PrintWriter(new File(calendar.getMonth().name + calendar.year + "Schedule.csv"))) {
 
